@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spider-Verse Heroes Gallery</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Creepster&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a0505 50%, #050a1a 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        .web-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(229, 9, 20, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(0, 102, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .web-pattern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(0deg, transparent, transparent 50px, rgba(255,255,255,0.03) 50px, rgba(255,255,255,0.03) 51px),
+                repeating-linear-gradient(90deg, transparent, transparent 50px, rgba(255,255,255,0.03) 50px, rgba(255,255,255,0.03) 51px);
+            pointer-events: none;
+            z-index: 0;
+            animation: webShift 20s linear infinite;
+        }
+
+        @keyframes webShift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        /* Header */
+        header {
+            position: relative;
+            z-index: 10;
+            padding: 2rem;
+            text-align: center;
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid rgba(229, 9, 20, 0.3);
+        }
+
+        h1 {
+            font-family: 'Bangers', cursive;
+            font-size: 4rem;
+            background: linear-gradient(90deg, #e50914 0%, #ff4444 25%, #0066ff 50%, #4488ff 75%, #e50914 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientShift 8s ease infinite;
+            text-shadow: 0 0 30px rgba(229, 9, 20, 0.5);
+            letter-spacing: 2px;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #aaa;
+            margin-top: 0.5rem;
+            font-weight: 300;
+        }
+
+        /* Main Container */
+        .container {
+            position: relative;
+            z-index: 5;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+
+        /* Hero Grid */
+        .hero-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        /* Hero Card */
+        .hero-card {
+            background: rgba(20, 20, 20, 0.9);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(229, 9, 20, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(229, 9, 20, 0.1), transparent);
+            transform: rotate(45deg);
+            transition: all 0.6s ease;
+        }
+
+        .hero-card:hover::before {
+            left: 100%;
+        }
+
+        .hero-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: #e50914;
+            box-shadow: 0 20px 60px rgba(229, 9, 20, 0.4),
+                        0 0 40px rgba(0, 102, 255, 0.2);
+        }
+
+        .hero-icon {
+            font-size: 4rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            filter: drop-shadow(0 0 20px currentColor);
+        }
+
+        .hero-name {
+            font-family: 'Bangers', cursive;
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #e50914, #ff4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-universe {
+            text-align: center;
+            color: #888;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .hero-description {
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-powers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .power-tag {
+            background: rgba(229, 9, 20, 0.2);
+            border: 1px solid rgba(229, 9, 20, 0.5);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: #ff4444;
+        }
+
+        /* Special variants */
+        .hero-card.blue-variant {
+            border-color: rgba(0, 102, 255, 0.3);
+        }
+
+        .hero-card.blue-variant:hover {
+            border-color: #0066ff;
+            box-shadow: 0 20px 60px rgba(0, 102, 255, 0.4),
+                        0 0 40px rgba(229, 9, 20, 0.2);
+        }
+
+        .hero-card.blue-variant .hero-name {
+            background: linear-gradient(135deg, #0066ff, #4488ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-card.blue-variant .power-tag {
+            background: rgba(0, 102, 255, 0.2);
+            border-color: rgba(0, 102, 255, 0.5);
+            color: #4488ff;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            position: relative;
+            background: linear-gradient(135deg, rgba(20, 20, 20, 0.95), rgba(10, 10, 10, 0.95));
+            margin: 5% auto;
+            padding: 3rem;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 20px;
+            border: 2px solid #e50914;
+            box-shadow: 0 0 100px rgba(229, 9, 20, 0.5);
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .close {
+            position: absolute;
+            right: 1.5rem;
+            top: 1.5rem;
+            font-size: 2rem;
+            color: #fff;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .close:hover {
+            color: #e50914;
+            transform: rotate(90deg);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .modal-content {
+                width: 95%;
+                padding: 2rem;
+            }
+        }
+
+        /* Floating Spiders */
+        .spider-float {
+            position: fixed;
+            font-size: 2rem;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.3;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            25% { transform: translate(50px, -30px) rotate(90deg); }
+            50% { transform: translate(-30px, 50px) rotate(180deg); }
+            75% { transform: translate(40px, 20px) rotate(270deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="web-bg"></div>
+    <div class="web-pattern"></div>
+
+    <!-- Floating Spiders -->
+    <div class="spider-float" style="top: 10%; left: 15%; animation-delay: 0s;">🕷️</div>
+    <div class="spider-float" style="top: 70%; left: 80%; animation-delay: 3s;">🕸️</div>
+    <div class="spider-float" style="top: 40%; left: 90%; animation-delay: 6s;">🕷️</div>
+    <div class="spider-float" style="top: 80%; left: 20%; animation-delay: 9s;">🕸️</div>
+
+    <header>
+        <h1>🕷️ SPIDER-VERSE HEROES 🕸️</h1>
+        <p class="subtitle">Explore the Multiverse of Spider-Powered Champions</p>
+    </header>
+
+    <div class="container">
+        <div class="hero-grid" id="heroGrid">
+            <!-- Heroes will be dynamically added here -->
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="heroModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalContent"></div>
+        </div>
+    </div>
+
+    <script>
+        const heroes = [
+            {
+                icon: "🕷️",
+                name: "Miles Morales",
+                universe: "Earth-1610",
+                description: "A Brooklyn teenager who gained spider powers and became the Spider-Man of his universe. Miles has unique abilities including invisibility and Venom Blast bioelectricity.",
+                powers: ["Web-Slinging", "Venom Blast", "Invisibility", "Spider-Sense", "Super Strength"],
+                variant: "red"
+            },
+            {
+                icon: "🕸️",
+                name: "Gwen Stacy",
+                universe: "Earth-65",
+                description: "Spider-Woman from an alternate universe where she was bitten by a radioactive spider instead of Peter Parker. A skilled fighter and drummer in a band.",
+                powers: ["Web-Slinging", "Spider-Sense", "Acrobatics", "Super Agility", "Wall-Crawling"],
+                variant: "blue"
+            },
+            {
+                icon: "🎸",
+                name: "Spider-Punk",
+                universe: "Earth-138",
+                description: "Hobie Brown, an anarchist punk rocker from 1970s London who fights against authoritarianism. Known for his anti-establishment views and DIY costume.",
+                powers: ["Web-Slinging", "Guitar Combat", "Tech Genius", "Spider-Sense", "Rebellion"],
+                variant: "red"
+            },
+            {
+                icon: "🦾",
+                name: "Miguel O'Hara",
+                universe: "Earth-928",
+                description: "Spider-Man from the year 2099. A geneticist who leads the Spider-Society and protects the multiverse. Has unique abilities like fangs and talons.",
+                powers: ["Fangs & Venom", "Talons", "Enhanced Strength", "Accelerated Vision", "Web-Slinging"],
+                variant: "blue"
+            },
+            {
+                icon: "🎩",
+                name: "Spider-Man Noir",
+                universe: "Earth-90214",
+                description: "A hard-boiled detective from 1933 New York. This Spider-Man lives in a black and white universe and fights Nazis with a darker, grittier approach.",
+                powers: ["Web-Slinging", "Detective Skills", "Enhanced Senses", "Combat Expert", "Stealth"],
+                variant: "red"
+            },
+            {
+                icon: "🐷",
+                name: "Spider-Ham",
+                universe: "Earth-8311",
+                description: "Peter Porker, a cartoon pig with spider powers. Operates by cartoon physics and brings comic relief while being surprisingly effective in battle.",
+                powers: ["Cartoon Physics", "Web-Slinging", "Hammerspace", "Toon Force", "Durability"],
+                variant: "red"
+            },
+            {
+                icon: "🤖",
+                name: "Peni Parker",
+                universe: "Earth-14512",
+                description: "A young girl who pilots a psychically-powered mech suit called SP//dr. Uses advanced technology to fight crime in her anime-inspired universe.",
+                powers: ["Mech Pilot", "Psychic Link", "Technology", "Spider-Sense", "Engineering"],
+                variant: "blue"
+            },
+            {
+                icon: "🌟",
+                name: "Peter B. Parker",
+                universe: "Earth-616B",
+                description: "An older, more experienced Spider-Man who serves as a mentor to Miles. Despite personal struggles, he remains a true hero.",
+                powers: ["Web-Slinging", "Spider-Sense", "Experience", "Mentorship", "Classic Moves"],
+                variant: "red"
+            },
+            {
+                icon: "🦸",
+                name: "Silk",
+                universe: "Earth-616",
+                description: "Cindy Moon was bitten by the same spider as Peter Parker. She can create organic webs and has enhanced spider-sense abilities.",
+                powers: ["Organic Webs", "Enhanced Spider-Sense", "Speed", "Agility", "Web Cocoons"],
+                variant: "blue"
+            },
+            {
+                icon: "🕷️",
+                name: "Spider-Woman",
+                universe: "Earth-616",
+                description: "Jessica Drew, one of the most powerful Spider-Heroes. She has unique pheromone powers and can glide using web-wings.",
+                powers: ["Venom Blast", "Pheromones", "Gliding", "Super Strength", "Bio-Electric Energy"],
+                variant: "red"
+            },
+            {
+                icon: "👑",
+                name: "Spider-UK",
+                universe: "Earth-833",
+                description: "Zarina Zahari, a hero who protects her universe from mystical threats. She fights dragons and other fantastical foes.",
+                powers: ["Web-Slinging", "Magic Resistance", "Combat Skills", "Leadership", "Bravery"],
+                variant: "blue"
+            },
+            {
+                icon: "🌈",
+                name: "Web-Weaver",
+                universe: "Earth-TRN926",
+                description: "A fashion designer who uses his powers to fight crime in style. The first openly gay Spider-Hero, bringing representation to the Spider-Verse.",
+                powers: ["Fashion Combat", "Web Design", "Acrobatics", "Style Sense", "Confidence"],
+                variant: "red"
+            }
+        ];
+
+        const heroGrid = document.getElementById('heroGrid');
+        const modal = document.getElementById('heroModal');
+        const modalContent = document.getElementById('modalContent');
+        const closeBtn = document.querySelector('.close');
+
+        // Generate hero cards
+        heroes.forEach(hero => {
+            const card = document.createElement('div');
+            card.className = `hero-card ${hero.variant}-variant`;
+            card.innerHTML = `
+                <div class="hero-icon">${hero.icon}</div>
+                <div class="hero-name">${hero.name}</div>
+                <div class="hero-universe">${hero.universe}</div>
+                <div class="hero-description">${hero.description}</div>
+                <div class="hero-powers">
+                    ${hero.powers.map(power => `<span class="power-tag">${power}</span>`).join('')}
+                </div>
+            `;
+            
+            card.addEventListener('click', () => {
+                modalContent.innerHTML = `
+                    <div class="hero-icon" style="font-size: 5rem; text-align: center; margin-bottom: 1rem;">${hero.icon}</div>
+                    <h2 style="font-family: 'Bangers', cursive; font-size: 2.5rem; text-align: center; color: #e50914; margin-bottom: 0.5rem;">${hero.name}</h2>
+                    <p style="text-align: center; color: #888; font-style: italic; margin-bottom: 2rem;">${hero.universe}</p>
+                    <p style="line-height: 1.8; color: #ccc; margin-bottom: 2rem;">${hero.description}</p>
+                    <h3 style="color: #ff4444; margin-bottom: 1rem; font-size: 1.3rem;">Powers & Abilities</h3>
+                    <div class="hero-powers">
+                        ${hero.powers.map(power => `<span class="power-tag">${power}</span>`).join('')}
+                    </div>
+                `;
+                modal.style.display = 'block';
+            });
+            
+            heroGrid.appendChild(card);
+        });
+
+        // Modal controls
+        closeBtn.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Web particle effect on click
+        document.addEventListener('click', (e) => {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.left = e.clientX + 'px';
+            particle.style.top = e.clientY + 'px';
+            particle.style.width = '10px';
+            particle.style.height = '10px';
+            particle.style.background = '#e50914';
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '9999';
+            particle.style.boxShadow = '0 0 20px #e50914';
+            particle.style.animation = 'particleFade 1s ease-out forwards';
+            document.body.appendChild(particle);
+
+            setTimeout(() => particle.remove(), 1000);
+        });
+
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes particleFade {
+                0% { transform: scale(1) translate(0, 0); opacity: 1; }
+                100% { transform: scale(0) translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px); opacity: 0; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
