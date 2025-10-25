@@ -4,7 +4,7 @@ An interactive, animated Spider-Man themed web application featuring dynamic can
 
 ## 🎥 Live Demo
 
-**[🕸️ View Live Demo](https://nitesh-shaw-098.github.io/-Spider-Man-Web-Animation/)**
+**[🕸️ View Live Demo](https://nitesh-shaw-098.github.io/Spider-Man-Web-Animation/)**
 
 Try it now to experience:
 - Interactive web connections that follow your mouse
