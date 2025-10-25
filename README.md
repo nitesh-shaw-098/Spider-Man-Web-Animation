@@ -4,7 +4,7 @@ An interactive, animated Spider-Man themed web application featuring dynamic can
 
 ## 🎥 Live Demo
 
-**[🕸️ View Live Demo](https://ppl-ai-code-interpreter-files.s3.amazonaws.com/web/direct-files/ae6f17ce8511b55958b5b4f62b4293fe/9257b8f7-5f71-4df5-8f20-b8d8f2bd3bf8/canvas-app/index.html)**
+**[🕸️ View Live Demo](https://nitesh-shaw-098.github.io/-Spider-Man-Web-Animation/)**
 
 Try it now to experience:
 - Interactive web connections that follow your mouse
